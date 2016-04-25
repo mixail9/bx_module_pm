@@ -12,6 +12,16 @@
 	</div>
 <?endforeach;?>
 
+<?$APPLICATION->IncludeComponent(
+   "bitrix:main.pagenavigation",
+   "",
+   array(
+      "NAV_OBJECT" => $arResult['NAV'],
+      "SEF_MODE" => "N",
+   ),
+   false
+);?>
+
 <form method="post">
 	<?=bitrix_sessid_post();?>
 	<?=GetMessage('TITLE_NAME')?><input type="text" name="name" id="user-name-to-input"><br>

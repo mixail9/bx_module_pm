@@ -20,13 +20,23 @@ class FeedbackAdd extends CBitrixComponent
 	{
 		global $USER;
 
+		$nav = new \Bitrix\Main\UI\PageNavigation("page");
+		$nav->allowAllRecords(true)->setPageSize(2)->initFromUri();
+
 		$res = \Tmpi\Feedback\FeedbackTable::getList(array(
 			'filter' => array('TO_USER_ID' => $USER->GetID()),
-			'select' => array('THEME' => 'TITLE', 'FROM' => 'FROM_USER.LOGIN', 'MESSAGE')
+			'select' => array('THEME' => 'TITLE', 'FROM' => 'FROM_USER.LOGIN', 'MESSAGE'),
+			'count_total' => true,
+			'offset' => $nav->getOffset(),
+			'limit' => $nav->getLimit()
 		));
+
+		$nav->setRecordCount($res->getCount());
 
 		while($message = $res->fetch())
 			$this->arResult['ITEMS'][] = $message;
+
+		$this->arResult['NAV'] = $nav;
 	}
 
 
