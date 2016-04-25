@@ -8,7 +8,7 @@
 	<div>
 		<p class="user-name-to"><?=$message['FROM']?></p>
 		<p><?=$message['THEME']?></p>
-		<p><?=$message['TEXT']?></p>
+		<p><?=$message['MESSAGE']?></p>
 	</div>
 <?endforeach;?>
 

@@ -54,9 +54,10 @@ class FeedbackAdd extends CBitrixComponent
 			return false;
 		}
 
+		$userName = htmlspecialcharsbx($_POST['name']);
 
 		$userTo = \Bitrix\Main\UserTable::getList(array(
-			'filter'=>array('LOGIC' => 'OR', array('=LOGIN' => $_POST['name']), array('ID' => $_POST['name'])),
+			'filter'=>array('LOGIC' => 'OR', array('=LOGIN' => $userName), array('ID' => $userName)),
 			'select' => array('ID', 'LOGIN')
 		))->fetchAll();
 
@@ -71,8 +72,8 @@ class FeedbackAdd extends CBitrixComponent
 		$data = array(
 			'FROM_USER_ID' => $USER->GetID(),
 			'TO_USER_ID' => $toUser,
-			'TITLE' => $_POST['theme'],
-			'MESSAGE' => $_POST['message']
+			'TITLE' => htmlspecialcharsbx($_POST['theme']),
+			'MESSAGE' => htmlspecialcharsbx($_POST['message'])
 		);
 		$result = \Tmpi\Feedback\FeedbackTable::add($data);
 
